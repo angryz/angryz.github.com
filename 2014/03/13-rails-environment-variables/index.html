@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Rails 环境变量设置 | Zhipeng&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="什么是环境变量(Environment Variables)
+所有的操作系统都提供了各自的机制可以设置环境变量，所有的 Unix 和 类Unix 系统中的每个进程都有各自的环境变量设置，很多 PaaS 的开发者平台(比如Heroku)也提供了配置环境变量的机制。我的理解是，环境变量就是可以在不同环境中单独配置(对环境有依赖)，可以让进程在运行时加载并使用，一些底层的基础变量。常见的环境变量比如：P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rails 环境变量设置">
+<meta property="og:url" content="http://angryz.github.io/2014/03/13-rails-environment-variables/">
+<meta property="og:site_name" content="Zhipeng's blog">
+<meta property="og:description" content="什么是环境变量(Environment Variables)
+所有的操作系统都提供了各自的机制可以设置环境变量，所有的 Unix 和 类Unix 系统中的每个进程都有各自的环境变量设置，很多 PaaS 的开发者平台(比如Heroku)也提供了配置环境变量的机制。我的理解是，环境变量就是可以在不同环境中单独配置(对环境有依赖)，可以让进程在运行时加载并使用，一些底层的基础变量。常见的环境变量比如：P">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rails 环境变量设置">
+<meta name="twitter:description" content="什么是环境变量(Environment Variables)
+所有的操作系统都提供了各自的机制可以设置环境变量，所有的 Unix 和 类Unix 系统中的每个进程都有各自的环境变量设置，很多 PaaS 的开发者平台(比如Heroku)也提供了配置环境变量的机制。我的理解是，环境变量就是可以在不同环境中单独配置(对环境有依赖)，可以让进程在运行时加载并使用，一些底层的基础变量。常见的环境变量比如：P">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Zhipeng&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-43663103-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Zhipeng&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Learning software development and architecture</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="angryz.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-rails-environment-variables" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/13-rails-environment-variables/" class="article-date">
+  <time datetime="2014-03-13T05:31:41.000Z" itemprop="datePublished">2014-03-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Rails 环境变量设置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是环境变量(Environment_Variables)">什么是环境变量(<a href="http://en.wikipedia.org/wiki/Environment_variable" target="_blank" rel="external">Environment Variables</a>)</h2>
+<p>所有的操作系统都提供了各自的机制可以设置环境变量，所有的 <strong>Unix</strong> 和 <strong>类Unix</strong> 系统中的每个进程都有各自的环境变量设置，很多 PaaS 的开发者平台(比如Heroku)也提供了配置环境变量的机制。我的理解是，环境变量就是可以在不同环境中单独配置(对环境有依赖)，可以让进程在运行时加载并使用，一些底层的基础变量。常见的环境变量比如：PATH、HOME 等等。</p>
+<h2 id="为什么在_Rails_中使用环境变量">为什么在 Rails 中使用环境变量</h2>
+<p>主要有两方面原因，</p>
+<ul>
+<li>应用程序通常都是设计成可以在多种不同环境下部署和运行的，所以代码中不应该出现针对特定环境的内容(比如文件绝对路径)，而是应该在运行时根据当前环境使用合适的内容。那么对与这些对环境有所依赖的部分，就可能需要使用环境变量来进行配置。</li>
+<li>当应用程序中需要使用一些涉及到安全和隐私的内容时(比如邮箱密码)，把这类内容直接写在代码里是很不明智的，因为可能会有很多人可以浏览这部分代码，或者这些代码根本就是开源的。为了保护此类数据，就有必要把它们配置在只有你自己可以访问的环境中，让程序在运行时根据变量名去获取。</li>
+</ul>
+<h2 id="怎样在_Rails_中获取环境变量">怎样在 Rails 中获取环境变量</h2>
+<p>Ruby 提供了一个很方便的访问环境变量的方式：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="constant">ENV</span>[<span class="string">"VARIABLE_NAME"</span>]</div></pre></td></tr></table></figure>
+
+<p>比如要在一个 Rails 应用中配置一个 Gmail 账号来发邮件：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">config.action_mailer.smtp_settings = {</div><div class="line">  <span class="symbol">address:</span> <span class="string">"smtp.gmail.com"</span>,</div><div class="line">  <span class="symbol">port:</span> <span class="number">587</span>,</div><div class="line">  <span class="symbol">domain:</span> <span class="string">"example.com"</span>,</div><div class="line">  <span class="symbol">authentication:</span> <span class="string">"plain"</span>,</div><div class="line">  <span class="symbol">enable_starttls_auto:</span> <span class="keyword">true</span>,</div><div class="line">  <span class="symbol">user_name:</span> <span class="constant">ENV</span>[<span class="string">"GMAIL_USERNAME"</span>]</div><div class="line">  <span class="symbol">password:</span> <span class="constant">ENV</span>[<span class="string">"GMAIL_PASSWORD"</span>]</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>这个配置对 Rails 开发者肯定不陌生，这里就是使用环境变量对 Gmail 的用户名和密码进行了保护。</p>
+<h2 id="如何配置环境变量">如何配置环境变量</h2>
+<p>配置环境变量对大多数人来说也并不陌生，比如 Windows 系统属性设置里面就可以找到配置环境变量的按钮，在 Linux/Unix/Mac 之类的操作系统中可以通过配置 .bashrc 或者 .zshrc (根据使用shell来定)之类文件来设置。</p>
+<p>比如在 ~/.bashrc 中加入下面内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> GMAIL_USERNAME=<span class="string">"foobar@gmail.com"</span></div><div class="line"><span class="keyword">export</span> GMAIL_PASSWORD=<span class="string">"password"</span></div></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>我认为这种配置方式对一个运行在 production 环境的应用来说是不错的选择。我这么认为的理由是，假如我在 Linux 上部署应用的 production 环境，为了很好的控制操作权限，我会新建一个系统用户，然后用这个用户部署和运行这个应用，那么我在这个用户的 ~/.bashrc 中配置应用所需要的环境变量，即保证了安全性，又可以完全与应用隔离，方便维护且不会轻易丢失。</p>
+<p>这也是对各种应用程序最通用的一种配置环境变量的方式，下面再说两个针对 Rails 的环境变量配置方式。</p>
+<h2 id="自建_YAML_文件配置">自建 YAML 文件配置</h2>
+<p>该方式一共有三步，</p>
+<ol>
+<li>在 Rails App 路径下新建一个 YAML 文件，比如 <strong>config/local_env.yml</strong>，配置需要的环境变量，例如：</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">GMAIL_USERNAME</span>: <span class="string">'foobar@gmail.com'</span></div><div class="line"><span class="attribute">GMAIL_PASSWORD</span>: <span class="string">'password'</span></div></pre></td></tr></table></figure>
+
+<ol>
+<li>要让 Rails App 启动时首先加载配置的环境变量，需要在 <strong>config/application.rb</strong> 中添加如下代码：</li>
+</ol>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">config.before_configuration <span class="keyword">do</span></div><div class="line">  env_file = <span class="constant">File</span>.join(<span class="constant">Rails</span>.root, <span class="string">'config'</span>, <span class="string">'local_env.yml'</span>)</div><div class="line">  <span class="constant">YAML</span>.load(<span class="constant">File</span>.open(env_file)).each <span class="keyword">do</span> |key, value|</div><div class="line">    <span class="constant">ENV</span>[key.to_s] = value</div><div class="line">  <span class="keyword">end</span> <span class="keyword">if</span> <span class="constant">File</span>.exists?(env_file)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<ol>
+<li>将 <strong>config/local_env.yml</strong> 文件加入到 VCS 的忽略列表中，比如 <strong>.gitignore</strong></li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/config/</span>local_env.yml</div></pre></td></tr></table></figure>
+
+<p>这样就完成了整个配置，在 <strong>config/local_env.yml</strong> 中，每一行配置了一个环境变量，如果 <strong>config/local_env.yml</strong> 文件存在，其中的配置就会覆盖 shell 中的同名环境变量，需要注意第 3 步是非常重要的，否则就根本起不到对配置数据的保护作用了。</p>
+<h2 id="使用_Figaro_Gem">使用 Figaro Gem</h2>
+<p>如果你希望能够同时针对 development、test、production 配置不同的环境变量，又不介意多使用一个 Gem 的话，那么 <a href="https://github.com/laserlemon/figaro" target="_blank" rel="external">Figaro Gem</a> 就是个很好的选择。</p>
+<p>要使用 Figaro Gem，要先在 Gemfile 中添加：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">gem</span> <span class="string">'figaro'</span></div></pre></td></tr></table></figure>
+
+<p>运行 <code>$ bundle install</code></p>
+<p>然后执行 Figaro 提供的生成器 <code>$ rails generate figaro:install</code></p>
+<p>这将会为你生成一个 <strong>config/application.yml</strong> 文件，并将其添加到 <strong>.gitignore</strong> 中。</p>
+<p>然后你可以像上面讲到的 <strong>config/local_env.yml</strong> 那样配置 <strong>config/application.yml</strong> 文件，如果你想针对 development、test、production 配置不同的环境变量，可以这样：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">development:</div><div class="line">  GMAIL_USERNAME: <span class="symbol">'develop</span><span class="annotation">@gmail</span>.com'</div><div class="line"></div><div class="line">test:</div><div class="line">  GMAIL_USERNAME: <span class="symbol">'test</span><span class="annotation">@gmail</span>.com'</div><div class="line"></div><div class="line">production:</div><div class="line">  GMAIL_USERNAME: <span class="symbol">'product</span><span class="annotation">@gmail</span>.com'</div><div class="line"></div><div class="line">GMAIL_PASSWORD: <span class="symbol">'fooba</span>r'</div></pre></td></tr></table></figure>
+
+<p>在测试代码或其他一些情况下有可能无法使用 <em>ENV</em> 变量，这时可以使用 Figaro 提供的方法来获取配置的变量：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="constant">Figaro</span>.env.gmail_username</div></pre></td></tr></table></figure>
+
+<p>是不是很方便？对 Figaro 的更多说明可以参考它的<a href="https://github.com/laserlemon/figaro" target="_blank" rel="external">Github页面</a>。</p>
+<h2 id="补充">补充</h2>
+<p>上面提到的三种配置方式如果要说那种更好，不如说那种更适合。就像我前面说的在 shell 中直接配置的方式可能更适合发布 production 环境时使用，因为后面两种方式中的 YAML 文件都是在 Rails App 路径下的，所以没有完全隔离，一旦重新部署就需要重新处理一次配置，多少有些麻烦。所以还是要根据具体情况选择合适的配置方式才对。</p>
+<p>Figaro 提供的可以为不同环境分别添加各自配置的能力很多人一定喜欢，难道前两种配置方式就无法做到这一点么？其实也有办法，只不过稍稍麻烦一点，需要在代码里面去控制。首先，配置变量时可以在变量名后面添加后缀来区分不同环境的配置，就拿 <strong>config/local_env.yml</strong> 来示范一下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">GMAIL_USERNAME</span>: <span class="string">'foobar@gmail.com'</span></div><div class="line"><span class="attribute">GMAIL_USERNAME_DEV</span>: <span class="string">'develop@gmail.com'</span></div><div class="line"><span class="attribute">GMAIL_USERNAME_TEST</span>: <span class="string">'test@gmail.com'</span></div></pre></td></tr></table></figure>
+
+<p>然后在使用配置变量的地方分别做判断：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="constant">Rails</span>.env.development?</div><div class="line">  config.action_mailer.smtp_settings = {</div><div class="line">    <span class="symbol">user_name:</span> <span class="constant">ENV</span>[<span class="string">"GMAIL_USERNAME_DEV"</span>]</div><div class="line">  }</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="constant">Rails</span>.env.test?</div><div class="line">  config.action_mailer.smtp_settings = {</div><div class="line">    <span class="symbol">user_name:</span> <span class="constant">ENV</span>[<span class="string">"GMAIL_USERNAME_TEST"</span>]</div><div class="line">  }</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="constant">Rails</span>.env.production?</div><div class="line">  config.action_mailer.smtp_settings = {</div><div class="line">    <span class="symbol">user_name:</span> <span class="constant">ENV</span>[<span class="string">"GMAIL_USERNAME"</span>]</div><div class="line">  }</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2014/03/13-rails-environment-variables/" data-id="umfbbsjqrl69wa1o" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2014/03/13-rails-environment-variables/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/03/25-http_accept-json-will-be-treated-as-html/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          HTTP_ACCEPT 是 &#39;application/json, */*&#39; 时 Rails 按 &#39;text/html&#39; 处理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/10-vim-joining-lines-without-spaces/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Joining lines without spaces in VIM</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2014/03/13-rails-environment-variables/" data-title="Rails 环境变量设置" data-url="http://angryz.github.io/2014/03/13-rails-environment-variables/"></div>
+  </section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Database/">Database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Develop/">Develop</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GTD/">GTD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/System/">System</a><span class="category-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Spring/" style="font-size: 10.00px;">Spring</a><a href="/tags/git/" style="font-size: 15.00px;">git</a><a href="/tags/http/" style="font-size: 10.00px;">http</a><a href="/tags/ios/" style="font-size: 12.50px;">ios</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/mysql/" style="font-size: 15.00px;">mysql</a><a href="/tags/nginx/" style="font-size: 10.00px;">nginx</a><a href="/tags/objective-c/" style="font-size: 12.50px;">objective-c</a><a href="/tags/postgresql/" style="font-size: 10.00px;">postgresql</a><a href="/tags/rails/" style="font-size: 12.50px;">rails</a><a href="/tags/rest/" style="font-size: 10.00px;">rest</a><a href="/tags/shell/" style="font-size: 10.00px;">shell</a><a href="/tags/site/" style="font-size: 10.00px;">site</a><a href="/tags/spring/" style="font-size: 10.00px;">spring</a><a href="/tags/tools/" style="font-size: 17.50px;">tools</a><a href="/tags/vim/" style="font-size: 12.50px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2014/04/25-about-mysql-character-set/">MySQL 字符集相关</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/25-converting-charset-on-mac/">在Mac下做文件转码</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/25-gitlab-not-working-over-http/">git 命令通过 HTTP 操作用 Gitlab 搭建的代码库出错</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/25-http_accept-json-will-be-treated-as-html/">HTTP_ACCEPT 是 &#39;application/json, */*&#39; 时 Rails 按 &#39;text/html&#39; 处理</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/13-rails-environment-variables/">Rails 环境变量设置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 zhipeng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/angryz/landscape-z" target="_blank">Landscape-z</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"angryz"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>window._bd_share_config={"common":{},"share":{"bdCustomStyle":"nocss.css"}};with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

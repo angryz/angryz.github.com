@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives | Zhipeng&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zhipeng's blog">
+<meta property="og:url" content="http://angryz.github.io/archives/">
+<meta property="og:site_name" content="Zhipeng's blog">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zhipeng's blog">
+<meta name="twitter:description">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Zhipeng&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-43663103-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Zhipeng&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Learning software development and architecture</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="angryz.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-about-mysql-character-set" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/25-about-mysql-character-set/" class="article-date">
+  <time datetime="2014-04-25T09:53:45.000Z" itemprop="datePublished">2014-04-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/25-about-mysql-character-set/">MySQL 字符集相关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="查看字符集">查看字符集</h2>
+<p>查看服务器字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'%char%'</span>;</span></div></pre></td></tr></table></figure>
+
+<p>查看数据库字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> db_name;</span></div></pre></td></tr></table></figure>
+
+<p>查看表的字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name;</span></div><div class="line"><span class="operator"><span class="keyword">SHOW</span> <span class="keyword">TABLE</span> <span class="keyword">STATUS</span> <span class="keyword">FROM</span> db_name <span class="keyword">LIKE</span> <span class="string">'%TABLE_NAME%'</span>;</span></div></pre></td></tr></table></figure>
+
+<p>查看字段（列）字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">SHOW</span> <span class="keyword">FULL</span> <span class="keyword">COLUMNS</span> <span class="keyword">FROM</span> table_name;</span></div></pre></td></tr></table></figure>
+
+<h2 id="修改字符集">修改字符集</h2>
+<p>修改数据库默认字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> db_name <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> character_name [<span class="keyword">COLLATE</span> ...];</span></div><div class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> my_db <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</span></div></pre></td></tr></table></figure>
+
+<p>修改表默认字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> character_name [<span class="keyword">COLLATE</span>...];</span></div><div class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> my_table <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</span></div></pre></td></tr></table></figure>
+
+<p>修改表默认字符集，同时转换有关字段字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">CONVERT</span> <span class="keyword">TO</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> character_name [<span class="keyword">COLLATE</span> ...]</span></div><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> my_table <span class="keyword">CONVERT</span> <span class="keyword">TO</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</div></pre></td></tr></table></figure>
+
+<p>修改字段（列）字符集：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">CHANGE</span> col_name new_col_name <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> character_name [<span class="keyword">COLLATE</span> ...];</span></div><div class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> my_table <span class="keyword">CHANGE</span> my_column my_column <span class="built_in">VARCHAR</span>(<span class="number">100</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</span></div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2014/04/25-about-mysql-character-set/" data-id="9erjgz0by7alwi38" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2014/04/25-about-mysql-character-set/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-converting-charset-on-mac" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/25-converting-charset-on-mac/" class="article-date">
+  <time datetime="2014-04-25T09:11:17.000Z" itemprop="datePublished">2014-04-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/System/">System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/25-converting-charset-on-mac/">在Mac下做文件转码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>经常遇到从别人那里拿来的 Windows 下编辑的文本在 Mac 上打开全是乱码的问题，这时就需要对文件编码做一下转换才能正常阅读。</p>
+<p>在 OS X 中可以用 iconv 命令来实现对文件转码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">iconv <span class="operator">-f</span> GB18030 -t UTF8 target.txt</div></pre></td></tr></table></figure>
+
+<p>批量转换如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> target_files_dir</div><div class="line">find *.txt -exec sh -c <span class="string">"iconv -f GB18030 -t UTF8 {} &gt; {}.txt"</span> \;</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2014/04/25-converting-charset-on-mac/" data-id="lj0v3istrs5fvl52" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2014/04/25-converting-charset-on-mac/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-gitlab-not-working-over-http" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/25-gitlab-not-working-over-http/" class="article-date">
+  <time datetime="2014-03-25T08:51:33.000Z" itemprop="datePublished">2014-03-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/25-gitlab-not-working-over-http/">git 命令通过 HTTP 操作用 Gitlab 搭建的代码库出错</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于项目的需要近日升级了 MySQL 5.5，顺便也把 Gitlab 升级到了 6.7。结果今天在应用服务器上 <code>git pull</code> 的时候出现错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">fatal: protocol error: bad <span class="built_in">line</span> <span class="built_in">length</span> <span class="keyword">character</span>: <span class="number">718</span></div><div class="line">fatal: The remote <span class="function"><span class="keyword">end</span> <span class="title">hung</span> <span class="title">up</span> <span class="title">unexpectedly</span></span></div></pre></td></tr></table></figure>
+
+<p>于是尝试了一下 <code>git clone</code>，也还是有错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fatal</span>: <span class="string">protocol error: bad line length 8188</span></div></pre></td></tr></table></figure>
+
+<p>因为在我自己的电脑上 git 操作一切正常，而两个环境主要的区别就是连接 git 服务的协议，我的机器上用基于 <code>ssh</code> 的 <code>git</code> 协议，而应用服务器上通过 <code>http</code> 协议访问服务。所以问题肯定是和 <code>http</code> 协议有关，于是开始查看 gitlab 的日志，但是看不出有什么问题，查看 Nginx 的日志也没有任何错误。</p>
+<p>最后，经过一番搜索，找到了<a href="https://github.com/gitlabhq/gitlabhq/issues/5774" target="_blank" rel="external">这个Issue</a>。<br>看来是和<a href="https://github.com/gitlabhq/grack/commit/b79e2f09e3bf43a71088744c601e16f475b38ae6" target="_blank" rel="external">这个代码</a>有关系。在这个代码里面，对原来直接返回的 <code>block</code> 内容用 <code>encode_chunk</code> 方法重新进行了封装，在原来的 <code>block</code> 前添加了一行<strong>块大小信息</strong>。</p>
+<p>由于我现在的 Nginx 是 1.0 的版本，这个版本默认是没有包含 chunking module 的，所以无法正确处理 chunked response，看来只要按大家说的升级 Nginx 就可以了。</p>
+<p>我之前是直接通过 <code>yum install</code> 安装的 Nginx，而默认的 <code>yum</code> 封包库里只有 Nginx 1.0，所以我添加了 Webtatic 的封包库，然后卸载 Nginx 1.0，安装 Nginx 1.4。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">rpm -Uvh http://mirror.webtatic.com/yum/el6/latest.rpm</div><div class="line">service nginx stop</div><div class="line">yum remove nginx</div><div class="line">yum install nginx14</div><div class="line">service nginx start</div></pre></td></tr></table></figure>
+
+<p>整个升级过程非常快，我事先还备份了 <code>/etc/nginx</code>，但是升级后发现配置文件都还在，而且启动 Nginx 1.4 十分顺利。再尝试 <code>git pull</code>，果然OK了！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2014/03/25-gitlab-not-working-over-http/" data-id="yj4hh87bm97uy6kr" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2014/03/25-gitlab-not-working-over-http/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-http_accept-json-will-be-treated-as-html" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/25-http_accept-json-will-be-treated-as-html/" class="article-date">
+  <time datetime="2014-03-25T08:08:40.000Z" itemprop="datePublished">2014-03-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/25-http_accept-json-will-be-treated-as-html/">HTTP_ACCEPT 是 &#39;application/json, */*&#39; 时 Rails 按 &#39;text/html&#39; 处理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>用 Rails3 做移动端 App 的 Backend 时，出现一种情况，当移动端使用中国移动的网络时（中国联通无此状况），发送到服务端的 HTTP 请求的 Header 中的 Accept 莫名其妙的的被加上了 <code>*/*</code>。而本来客户端只给 Accept 赋值了 <code>application/json</code>，现在就变成了 <code>application/json, */*</code>。Rails 在接收到这种请求时，request 的 format 就会识别为 <code>text/html</code>，导致 controller 最终返回给客户端的是 html 格式的应答。</p>
+<p>为什么会被添加 <code>*/*</code> 就不做深究了，网络运营商对数据的传输做了哪些处理策略不得而知，就算知道了也无能为力。于是考虑从服务端着手想办法解决。</p>
+<p>之前为了发现为什么 Rails 返回的是 html 格式的应答时添加了一些 debug 日志，来观察客户端有没有正确的设置 HTTP Header。</p>
+<p><em>app/controllers/application_controller.rb</em></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApplicationController</span> <span class="inheritance">&lt; <span class="parent">ActionController::Base</span></span></span></div><div class="line">  protect_from_forgery</div><div class="line">  before_filter <span class="symbol">:log_request</span></div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>log_request</div><div class="line">    logger.debug <span class="string">"HTTP_ACCEPT = <span class="subst">#{request.headers[<span class="string">'HTTP_ACCEPT'</span>]}</span>"</span></div><div class="line">    logger.debug <span class="string">"CONTENT_TYPE = <span class="subst">#{request.headers[<span class="string">'CONTENT_TYPE'</span>]}</span>"</span></div><div class="line">    logger.debug <span class="string">"request.content_type = <span class="subst">#{request.headers[<span class="string">'action_dispatch.request.content_type'</span>]}</span>"</span></div><div class="line">    logger.debug <span class="string">"request.accepts = <span class="subst">#{request.headers[<span class="string">'action_dispatch.request.accepts'</span>]}</span>"</span></div><div class="line">    logger.debug <span class="string">"request.formats = <span class="subst">#{request.headers[<span class="string">'action_dispatch.request.formats'</span>]}</span>"</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>正是根据这些日志发现了被添加的 <code>*/*</code>，而且发现只有这一种情况会导致返回 html 应答，所以就针对这种情况做一下处理。<br>在 <em>application_controller.rb</em> 中添加如下代码：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">before_filter <span class="symbol">:modify_request_header</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> </span>modify_request_header</div><div class="line">  <span class="keyword">if</span> request.headers[<span class="string">'HTTP_ACCEPT'</span>].<span class="keyword">include</span>? <span class="string">"*/*"</span></div><div class="line">    preferred_accept = request.headers[<span class="string">'HTTP_ACCEPT'</span>].split(<span class="string">","</span>).first</div><div class="line">    logger.debug <span class="string">"Preferred ACCEPT: <span class="subst">#{preferred_accept}</span>"</span></div><div class="line">    request.format = <span class="symbol">:json</span> <span class="keyword">if</span> preferred_accept == <span class="string">"application/json"</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>采用这种方式修改了 request.formats 的值，于是终于可以正确返回 json 格式的应答了。</p>
+<p>可是为什么 Rails 不按照 Accept 的值的顺序优先采用 <code>application/json</code> 指定的格式呢？</p>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/03/25-http_accept-json-will-be-treated-as-html/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2014/03/25-http_accept-json-will-be-treated-as-html/" data-id="327hxk67taoj3t4i" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2014/03/25-http_accept-json-will-be-treated-as-html/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-rails-environment-variables" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/13-rails-environment-variables/" class="article-date">
+  <time datetime="2014-03-13T05:31:41.000Z" itemprop="datePublished">2014-03-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/13-rails-environment-variables/">Rails 环境变量设置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是环境变量(Environment_Variables)">什么是环境变量(<a href="http://en.wikipedia.org/wiki/Environment_variable" target="_blank" rel="external">Environment Variables</a>)</h2>
+<p>所有的操作系统都提供了各自的机制可以设置环境变量，所有的 <strong>Unix</strong> 和 <strong>类Unix</strong> 系统中的每个进程都有各自的环境变量设置，很多 PaaS 的开发者平台(比如Heroku)也提供了配置环境变量的机制。我的理解是，环境变量就是可以在不同环境中单独配置(对环境有依赖)，可以让进程在运行时加载并使用，一些底层的基础变量。常见的环境变量比如：PATH、HOME 等等。</p>
+<h2 id="为什么在_Rails_中使用环境变量">为什么在 Rails 中使用环境变量</h2>
+<p>主要有两方面原因，</p>
+<ul>
+<li>应用程序通常都是设计成可以在多种不同环境下部署和运行的，所以代码中不应该出现针对特定环境的内容(比如文件绝对路径)，而是应该在运行时根据当前环境使用合适的内容。那么对与这些对环境有所依赖的部分，就可能需要使用环境变量来进行配置。</li>
+<li>当应用程序中需要使用一些涉及到安全和隐私的内容时(比如邮箱密码)，把这类内容直接写在代码里是很不明智的，因为可能会有很多人可以浏览这部分代码，或者这些代码根本就是开源的。为了保护此类数据，就有必要把它们配置在只有你自己可以访问的环境中，让程序在运行时根据变量名去获取。</li>
+</ul>
+<h2 id="怎样在_Rails_中获取环境变量">怎样在 Rails 中获取环境变量</h2>
+<p>Ruby 提供了一个很方便的访问环境变量的方式：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="constant">ENV</span>[<span class="string">"VARIABLE_NAME"</span>]</div></pre></td></tr></table></figure>
+
+<p>比如要在一个 Rails 应用中配置一个 Gmail 账号来发邮件：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">config.action_mailer.smtp_settings = {</div><div class="line">  <span class="symbol">address:</span> <span class="string">"smtp.gmail.com"</span>,</div><div class="line">  <span class="symbol">port:</span> <span class="number">587</span>,</div><div class="line">  <span class="symbol">domain:</span> <span class="string">"example.com"</span>,</div><div class="line">  <span class="symbol">authentication:</span> <span class="string">"plain"</span>,</div><div class="line">  <span class="symbol">enable_starttls_auto:</span> <span class="keyword">true</span>,</div><div class="line">  <span class="symbol">user_name:</span> <span class="constant">ENV</span>[<span class="string">"GMAIL_USERNAME"</span>]</div><div class="line">  <span class="symbol">password:</span> <span class="constant">ENV</span>[<span class="string">"GMAIL_PASSWORD"</span>]</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>这个配置对 Rails 开发者肯定不陌生，这里就是使用环境变量对 Gmail 的用户名和密码进行了保护。</p>
+<h2 id="如何配置环境变量">如何配置环境变量</h2>
+<p>配置环境变量对大多数人来说也并不陌生，比如 Windows 系统属性设置里面就可以找到配置环境变量的按钮，在 Linux/Unix/Mac 之类的操作系统中可以通过配置 .bashrc 或者 .zshrc (根据使用shell来定)之类文件来设置。</p>
+<p>比如在 ~/.bashrc 中加入下面内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> GMAIL_USERNAME=<span class="string">"foobar@gmail.com"</span></div><div class="line"><span class="keyword">export</span> GMAIL_PASSWORD=<span class="string">"password"</span></div></pre></td></tr></table></figure>
+
+
+        
+          <p class="article-more-link">
+            <a href="/2014/03/13-rails-environment-variables/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2014/03/13-rails-environment-variables/" data-id="umfbbsjqrl69wa1o" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2014/03/13-rails-environment-variables/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vim-joining-lines-without-spaces" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/10-vim-joining-lines-without-spaces/" class="article-date">
+  <time datetime="2014-03-10T10:47:03.000Z" itemprop="datePublished">2014-03-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/10-vim-joining-lines-without-spaces/">Joining lines without spaces in VIM</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="在VIM中合并多行文本且其中不产生空格">在VIM中合并多行文本且其中不产生空格</h2>
+<p>假设有一个文本文件，里面有很多行文本，我现在想要把所有文本合并为一行。<br>这不是很简单嘛！<br>只要 <code>gg</code> 先移动到首行，再 <code>VG</code>（用<code>vG</code>也可）选中所有行，然后用 <code>J</code> 合并所有行不就OK了么？</p>
+<p>按上面的操作的确是合并成了一行，可是在原来每两行的连接处都会被添加一个空格，这不是我想要的。<br>要把所有文本合并为一行且中间不添加空格，该怎么做？<br>其实也很简单，在 <code>J</code> 之前再多敲一个 <code>g</code> 就可以了，连续的操作就是 <code>ggVGgJ</code>。</p>
+<p>那要是不合并全部文本，只合并一段（paragraph）文本，该怎么做？<br>可以这样操作 <code>vipgJ</code>，也就是在visual模式下选中段落然后 <code>gJ</code>。</p>
+<p>以此类推，基本的方法就是在visual模式下选中要合并的部分 <code>gJ</code> 一下就好。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2014/03/10-vim-joining-lines-without-spaces/" data-id="72cdwnovvehve9ak" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2014/03/10-vim-joining-lines-without-spaces/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-permission-denied-when-pushing-to-github" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/02/21-permission-denied-when-pushing-to-github/" class="article-date">
+  <time datetime="2014-02-21T01:58:03.000Z" itemprop="datePublished">2014-02-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/System/">System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/02/21-permission-denied-when-pushing-to-github/">Permission denied when pushing to Github</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="现象">现象</h2>
+<p>添加 remote 后，通过 git 协议 push 代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git remote add origin git@github.com:angryz/icloudaegis_ejbca.git</div><div class="line">$ git push -u origin master</div></pre></td></tr></table></figure>
+
+<p>此时出现错误提示</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Warning: Permanently added <span class="operator">the</span> RSA host key <span class="keyword">for</span> IP address <span class="string">'192.30.252.131'</span> <span class="built_in">to</span> <span class="operator">the</span> list <span class="operator">of</span> known hosts.</div><div class="line">Permission denied (publickey).</div><div class="line">fatal: Could <span class="operator">not</span> <span class="built_in">read</span> <span class="built_in">from</span> remote repository.</div><div class="line"></div><div class="line">Please make sure you have <span class="operator">the</span> correct access rights</div><div class="line"><span class="operator">and</span> <span class="operator">the</span> repository exists.</div></pre></td></tr></table></figure>
+
+<h2 id="处理">处理</h2>
+<p>调试 ssh 连接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -vT git@github.com</div></pre></td></tr></table></figure>
+
+<p>查看结果，连接正常，仍然报错 <code>Permission denied (publickey).</code></p>
+<p>检查 ssh 校验key是否是正常的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ssh-add <span class="operator">-l</span></div><div class="line">The agent has no identities.</div></pre></td></tr></table></figure>
+
+<p>没有打印出 key 信息，说明 ssh 连接时没有正确使用 key。</p>
+<p>查看自己的 key 文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls ~/.ssh</div></pre></td></tr></table></figure>
+
+<p>在该目录下发现 <code>github_rsa</code>，接下来将其添加到 ssh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-add ~/.ssh/github_rsa</div></pre></td></tr></table></figure>
+
+<p>然后再运行 <code>ssh -vT git@github.com</code>，正常。</p>
+<h2 id="总结">总结</h2>
+<p>通常系统使用 ssh 协议时默认使用的 key 文件是 <code>~/.ssh/id_rsa</code>，如果你针对某些 ssh 连接的 key 文件没有覆盖系统默认的 <code>id_rsa</code>，而是保存为自定义的文件名，那么就需要手动通过 <code>ssh-add</code> 将其添加到 ssh 协议的查找对象中。</p>
+<p><a href="https://help.github.com/articles/error-permission-denied-publickey" target="_blank" rel="external">参考 Github help: Error: Permission denied (publickey)</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2014/02/21-permission-denied-when-pushing-to-github/" data-id="olog2pnomuttsach" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2014/02/21-permission-denied-when-pushing-to-github/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Database/">Database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Develop/">Develop</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GTD/">GTD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/System/">System</a><span class="category-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Spring/" style="font-size: 10.00px;">Spring</a><a href="/tags/git/" style="font-size: 15.00px;">git</a><a href="/tags/http/" style="font-size: 10.00px;">http</a><a href="/tags/ios/" style="font-size: 12.50px;">ios</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/mysql/" style="font-size: 15.00px;">mysql</a><a href="/tags/nginx/" style="font-size: 10.00px;">nginx</a><a href="/tags/objective-c/" style="font-size: 12.50px;">objective-c</a><a href="/tags/postgresql/" style="font-size: 10.00px;">postgresql</a><a href="/tags/rails/" style="font-size: 12.50px;">rails</a><a href="/tags/rest/" style="font-size: 10.00px;">rest</a><a href="/tags/shell/" style="font-size: 10.00px;">shell</a><a href="/tags/site/" style="font-size: 10.00px;">site</a><a href="/tags/spring/" style="font-size: 10.00px;">spring</a><a href="/tags/tools/" style="font-size: 17.50px;">tools</a><a href="/tags/vim/" style="font-size: 12.50px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2014/04/25-about-mysql-character-set/">MySQL 字符集相关</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/25-converting-charset-on-mac/">在Mac下做文件转码</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/25-gitlab-not-working-over-http/">git 命令通过 HTTP 操作用 Gitlab 搭建的代码库出错</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/25-http_accept-json-will-be-treated-as-html/">HTTP_ACCEPT 是 &#39;application/json, */*&#39; 时 Rails 按 &#39;text/html&#39; 处理</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/13-rails-environment-variables/">Rails 环境变量设置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 zhipeng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/angryz/landscape-z" target="_blank">Landscape-z</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"angryz"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>window._bd_share_config={"common":{},"share":{"bdCustomStyle":"nocss.css"}};with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

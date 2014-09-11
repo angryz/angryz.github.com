@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2013/8 | Zhipeng&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zhipeng's blog">
+<meta property="og:url" content="http://angryz.github.io/archives/2013/08/">
+<meta property="og:site_name" content="Zhipeng's blog">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zhipeng's blog">
+<meta name="twitter:description">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Zhipeng&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-43663103-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Zhipeng&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Learning software development and architecture</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="angryz.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-restful-http-web-services-based-on-spring3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/30-restful-http-web-services-based-on-spring3/" class="article-date">
+  <time datetime="2013-08-30T07:18:30.000Z" itemprop="datePublished">2013-08-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/30-restful-http-web-services-based-on-spring3/">使用 Spring 3 构建基于 HTTP 的RESTful Web Services</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文不讲述 RESTful Web Services 的概念和理论，你需要了解什么是 RESTful Web Services。</p>
+<p>本文不讲述 Spring Framework 的使用和技巧，你需要熟悉 Spring Framework 和 Spring MVC。</p>
+<p>本文内容主要是简单说明使用 Spring 3 来构建一个简易的 RESTful Web Service 相关内容。</p>
+<p>Spring 自版本3开始增加了对 RESTful Web Services 开发的支持，且 REST 已被无缝整合到了 Spring 的 MVC 框架中，因此在 Spring 中创建 RESTful Web Services 是十分容易的。这主要体现在:</p>
+<ul>
+<li>通过 <code>@RequestMapping</code>, <code>@PathVariable</code>, <code>@RequestBody</code>, <code>@ResponseBody</code> 等注解(Annotation)可以简单的创建资源标识和URI映射</li>
+<li>丰富的数据载体支持，比如 XML、JSON</li>
+<li>完全采用 Spring MVC 模型进行开发，使用 Spring 开发的应用可无缝过渡到 REST<br><br></li>
+</ul>
+<hr>
+<p>下面通过一个例子来说明使用 Spring 3 创建一个 RESTful Web Service 需要的操作。</p>
+<p>对于本例的几点说明：</p>
+<ol>
+<li>通信协议为 HTTP 协议；</li>
+<li>参数类型为 JSON 格式；</li>
+<li>例子中的代码均采用省略的写法，只写出需要注意的部分；<br><br></li>
+</ol>
+<h2 id="代码依赖">代码依赖</h2>
+<ul>
+<li>spring-webmvc</li>
+<li>jackson-core-asl</li>
+<li>jackson-mapper-asl</li>
+</ul>
+<p>如果使用 Maven 的话可以参考如下配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">version</span>&gt;</span>3.2.4.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.codehaus.jackson<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>jackson-core-asl<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.9.13<span class="tag">&lt;/<span class="title">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.codehaus.jackson<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>jackson-mapper-asl<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.9.13<span class="tag">&lt;/<span class="title">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p><br></p>
+<h2 id="Java_实现">Java 实现</h2>
+<p>本例中我们假设只有一个 Entity 对象 <strong>Customer</strong>，实现如下：</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> demo.rest.model;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>{</div><div class="line">  <span class="keyword">private</span> <span class="keyword">long</span> id;</div><div class="line">  <span class="keyword">private</span> String name;</div><div class="line">  <span class="keyword">private</span> String mobile;</div><div class="line">  <span class="keyword">private</span> String address;</div><div class="line">  <span class="keyword">private</span> String email;</div><div class="line"></div><div class="line">  <span class="comment">// omit implementation of Getters and Setters below</span></div><div class="line">  <span class="comment">// ......</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><br></p>
+<p>同时，针对 <strong>Customer</strong> 的持久化操作实现 <strong>CustomerRepository</strong> 大致如下：</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> demo.rest.repo;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerRepository</span> </span>{</div><div class="line"></div><div class="line">  <span class="keyword">public</span> Customer <span class="title">query</span>(<span class="keyword">long</span> id) {</div><div class="line">    <span class="comment">// omitted</span></div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">public</span> List&lt;Customer&gt; <span class="title">queryAll</span>() {</div><div class="line">    <span class="comment">// omitted</span></div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span>(Customer customer) {</div><div class="line">    <span class="comment">// omitted</span></div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span>(Customer customer) {</div><div class="line">    <span class="comment">// omitted</span></div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span>(<span class="keyword">long</span> id) {</div><div class="line">    <span class="comment">// omitted</span></div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><br><br>
+        
+          <p class="article-more-link">
+            <a href="/2013/08/30-restful-http-web-services-based-on-spring3/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2013/08/30-restful-http-web-services-based-on-spring3/" data-id="qfkkems0qe3982i3" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2013/08/30-restful-http-web-services-based-on-spring3/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rest/">rest</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vim-skill-columns-operations" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/16-vim-skill-columns-operations/" class="article-date">
+  <time datetime="2013-08-16T13:45:53.000Z" itemprop="datePublished">2013-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/16-vim-skill-columns-operations/">VIM技巧:多行操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="用_Ctrl_+_v_进行列操作">用 <code>Ctrl + v</code> 进行列操作</h2>
+<h3 id="按下_Ctrl_+_v_后移动光标，然后按_I_插入内容，按_Esc_结束。">按下 <code>Ctrl + v</code> 后移动光标，然后按 <code>I</code> 插入内容，按 <code>Esc</code> 结束。</h3>
+<p><img src="http://i1273.photobucket.com/albums/y408/angryz/vim-column-edit-000_zps5e6b57f1.gif" alt="insert columns"></p>
+<h3 id="按下_Ctrl_+_v_后移动光标，然后按_x_删除所选内容。">按下 <code>Ctrl + v</code> 后移动光标，然后按 <code>x</code> 删除所选内容。</h3>
+<p><img src="http://i1273.photobucket.com/albums/y408/angryz/vim-column-edit-001_zpse263eb02.gif" alt="delete columns"></p>
+<h3 id="按下_Ctrl_+_v_后移动光标，然后按_c_替换所选内容，按_Esc_结束。">按下 <code>Ctrl + v</code> 后移动光标，然后按 <code>c</code> 替换所选内容，按 <code>Esc</code> 结束。</h3>
+<p><img src="http://i1273.photobucket.com/albums/y408/angryz/vim-column-edit-002_zps14ec65fa.gif" alt="modify columns"></p>
+<h3 id="按下_Ctrl_+_v_后移动光标，按_$_移至行末，然后按_A_追加内容，按_Esc_结束。">按下 <code>Ctrl + v</code> 后移动光标，按 <code>$</code> 移至行末，然后按 <code>A</code> 追加内容，按 <code>Esc</code> 结束。</h3>
+<p><img src="http://i1273.photobucket.com/albums/y408/angryz/vim-column-edit-003_zps24fffda8.gif" alt="append columns"></p>
+<p>用 <code>Ctrl + v</code> 还何以有更多种用法，请自行发掘。</p>
+<h2 id="用替换正则表达式的方式操作">用替换正则表达式的方式操作</h2>
+<h3 id="替换行首占位符_^_来实现插入内容到行首。">替换行首占位符 <code>^</code> 来实现插入内容到行首。</h3>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:s/^/#/g</div></pre></td></tr></table></figure>
+
+<h3 id="替换行末占位符_$_来实现追加内容到行末。">替换行末占位符 <code>$</code> 来实现追加内容到行末。</h3>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:s/$/\/\/comment/g</div></pre></td></tr></table></figure>
+
+<h3 id="操作指定区间的行。">操作指定区间的行。</h3>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:35,39s/red/blue/g</div></pre></td></tr></table></figure>
+
+<p>本例是将第35行至39行的内容中所有的 <em>red</em> 替换为 <em>blue</em>。</p>
+<p>通过替换正则表达式，可以实现各种操作，请灵活利用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2013/08/16-vim-skill-columns-operations/" data-id="tc2hfkcepc4npvj6" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2013/08/16-vim-skill-columns-operations/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-config-smtp-settings-of-redmine" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/16-config-smtp-settings-of-redmine/" class="article-date">
+  <time datetime="2013-08-16T07:43:17.000Z" itemprop="datePublished">2013-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/System/">System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/16-config-smtp-settings-of-redmine/">配置Redmine通过smtp服务发送邮件通知</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>In order to deliver emails to users of Redmine, we need to complete the email configuration.</p>
+<p>Email configuration of Redmine is contained in the <code>configuration.yml</code> file.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /var/www/redmine/config/configuration.yml</div></pre></td></tr></table></figure>
+
+<p>Let’s see a example email configuration first.</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">production:</span></div><div class="line">  <span class="symbol">email_delivery:</span></div><div class="line">    <span class="symbol">delivery_method:</span> <span class="symbol">:smtp</span></div><div class="line">    <span class="symbol">smtp_settings:</span></div><div class="line">      <span class="symbol">address:</span> smtp.mailserver.com</div><div class="line">      <span class="symbol">port:</span> <span class="number">25</span></div><div class="line">      <span class="symbol">domain:</span> mailserver.com</div><div class="line">      <span class="symbol">authentication:</span> <span class="symbol">:login</span></div><div class="line">      <span class="symbol">user_name:</span> <span class="string">'redmine@mydomain.com'</span></div><div class="line">      <span class="symbol">password:</span> <span class="string">'mypassword'</span></div></pre></td></tr></table></figure>
+
+<p>Because Redmine is developed with Ruby on Rails, so it’s email configuration is based on <a href="http://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration" target="_blank" rel="external">Action Mailer Configuration</a> of Ruby on Rails.</p>
+<p><em>delivery_method</em><br>The mail transport method to be used.<br>Valid settings:</p>
+<ul>
+<li>:smtp</li>
+<li>:sendmail</li>
+<li>:async_smtp</li>
+<li>:async_sendmail</li>
+</ul>
+<p>The <code>:async_smtp</code> and <code>:async_sendmail</code> use asynchronous sends, which means Redmine does not wait for the email to be sent to display the next page. See <a href="http://redmineblog.com/articles/asynchronous-email-delivery/" target="_blank" rel="external">Asynchronous Email Delivery</a> for more details. Some SMTP servers have delay period before processing takes place as anti-spam feature, during which time synchronous method will block Redmine (<a href="http://answers.bitnami.org/questions/4421/updating-an-issue-in-redmine-takes-10-seconds" target="_blank" rel="external">10 seconds</a> could be default value).</p>
+<p><em>address</em><br>The SMTP server address to be used.</p>
+<p><em>port</em><br>The SMTP server port to be used.</p>
+<p><em>domain</em><br>You can specify your HELO domain in this setting.</p>
+<p><em>authentication</em><br>The type of authentication method expected by your service provider.<br>Valid settings:</p>
+<ul>
+<li>nil (or omit the key) for no authentication</li>
+<li>:plain</li>
+<li>:login</li>
+<li>:cram_md5<br>(note: if you set this to <code>nil</code> or omit it, you must not include the <code>user_name</code> and <code>password</code> settings)</li>
+</ul>
+<p><em>user_name</em><br>If your mail server requires authentication, set the username in this setting.</p>
+<p><em>password</em><br>If your mail server requires authentication, set the password in this setting.</p>
+<p>And if you are using a TLS-requiring mail server, you’ll have to add this setting:<br><em>enable_starttls_auto</em><br>Valid Settings:</p>
+<ul>
+<li>true</li>
+<li>false<br>Set this to <code>true</code> if you are using a TLS-requiring mail server.</li>
+</ul>
+<p>Take GMail for example:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">production:</span></div><div class="line">  <span class="symbol">email_delivery:</span></div><div class="line">    <span class="symbol">delivery_method:</span> <span class="symbol">:smtp</span></div><div class="line">    <span class="symbol">smtp_settings:</span></div><div class="line">      <span class="symbol">enable_starttls_auto:</span> <span class="keyword">true</span></div><div class="line">      <span class="symbol">address:</span> smtp.gmail.com</div><div class="line">      <span class="symbol">port:</span> <span class="number">587</span></div><div class="line">      <span class="symbol">domain:</span> smtp.gmail.com</div><div class="line">      <span class="symbol">authentication:</span> <span class="symbol">:plain</span></div><div class="line">      <span class="symbol">user_name:</span> <span class="string">'my_google_id@gmail.com'</span></div><div class="line">      <span class="symbol">password:</span> <span class="string">'mypassword'</span></div></pre></td></tr></table></figure>
+
+<h2 id="More_examples">More examples</h2>
+<h3 id="No_Authentication">No Authentication</h3>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">production:</span></div><div class="line">  <span class="symbol">email_delivery:</span></div><div class="line">    <span class="symbol">delivery_method:</span> <span class="symbol">:smtp</span></div><div class="line">    <span class="symbol">smtp_settings:</span></div><div class="line">      <span class="symbol">address:</span> smtp.mailserver.com</div><div class="line">      <span class="symbol">port:</span> <span class="number">25</span></div><div class="line">      <span class="symbol">domain:</span> mydomain.com</div></pre></td></tr></table></figure>
+
+<h3 id="Using_sendmail_command">Using <strong>sendmail</strong> command</h3>
+<p>For unix system command: <code>/usr/sbin/sendmail</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">production:</span></div><div class="line">  <span class="symbol">email_delivery:</span></div><div class="line">    <span class="symbol">delivery_method:</span> <span class="symbol">:sendmail</span></div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2013/08/16-config-smtp-settings-of-redmine/" data-id="lpe1tgfsk4cf96lk" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2013/08/16-config-smtp-settings-of-redmine/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-use-scp-to-copy-files-between-hosts" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/12-use-scp-to-copy-files-between-hosts/" class="article-date">
+  <time datetime="2013-08-12T10:21:04.000Z" itemprop="datePublished">2013-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/System/">System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/12-use-scp-to-copy-files-between-hosts/">使用scp命令在linux主机之间复制文件/文件夹</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在linux主机之间复制文件或文件夹是一个经常会遇到的操作，通常可以用ftp或sftp命令来传输文件，但是如果要传输文件夹，或者在两台remote主机之间传输文件，这两个命令就显得不够给力了。</p>
+<p>scp是一个专门用来在linux主机之间传输文件的命令，它是基于ssh协议进行数据传输的，而且他可以直接传输文件夹，并且除了可以进行local和remote主机之间的文件之外，还可以实现两台remote主机之间的文件传输。</p>
+<h2 id="scp_命令的基本使用格式">scp 命令的基本使用格式</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">scp [-<span class="number">12346</span>BCEpqrv] [-c cipher] [-F ssh_config] [-i identity_file] [<span class="operator">-l</span> limit] [-o ssh_option] [-P port]</div><div class="line">    [-S program] [[user@]host1:]file1 ... [[user@]host2:]file2</div></pre></td></tr></table></figure>
+
+<p>先不考虑前面的可选参数，常用的方式如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp  [[user@]host1:]file1  [[user@]host2:]file2</div></pre></td></tr></table></figure>
+
+<p>这里的user就是主机上的用户名称，因为是用ssh协议连接主机，所以格式是<code>user@host</code>这种形式。</p>
+<p>例如，要将本地的一个文件复制到remote主机上，命令使用方式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp /home/zhangsan/this-is-source-file.tar.gz  zhangsan@<span class="number">192.168</span>.<span class="number">1.110</span>:/data/uploads/this-is-target-file.tar.gz</div></pre></td></tr></table></figure>
+
+
+        
+          <p class="article-more-link">
+            <a href="/2013/08/12-use-scp-to-copy-files-between-hosts/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2013/08/12-use-scp-to-copy-files-between-hosts/" data-id="a6w8pot452lheb5v" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2013/08/12-use-scp-to-copy-files-between-hosts/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-install-wordpress-on-centos" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/11-install-wordpress-on-centos/" class="article-date">
+  <time datetime="2013-08-11T02:48:00.000Z" itemprop="datePublished">2013-08-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/System/">System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/11-install-wordpress-on-centos/">在 CentOS 上安装 Wordpress</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I’m goona host WordPress on Apache Service. Now let’s do this.</p>
+<h2 id="Install_Dependencies">Install Dependencies</h2>
+<p>Apache2, MySQL, OpenSSL are already installed before.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum -y install php php-mysql</div><div class="line"><span class="built_in">sudo</span> yum -y install httpd-manual mod_ssl mod_perl mod_auth_mysql</div><div class="line"><span class="built_in">sudo</span> yum -y install php-gd php-xml php-mbstring php-ldap php-pear php-xmlrpc</div><div class="line"><span class="built_in">sudo</span> yum -y install mysql-connector-odbc mysql-devel libdbi-dbd-mysql</div></pre></td></tr></table></figure>
+
+<h2 id="Get_latest_edition_of_WordPress_(Simplified_Chinese_Version)">Get latest edition of WordPress (Simplified Chinese Version)</h2>
+<p>From <a href="http://cn.wordpress.org/switching/" target="_blank" rel="external">this page</a>. (You may need to cross the GFW to see it.)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/downloads/</div><div class="line">wget http://cn.wordpress.org/wordpress-<span class="number">3.6</span>-zh_CN.tar.gz</div><div class="line">tar zxvf wordpress-<span class="number">3.6</span>-zh_CN.tar.gz</div><div class="line"><span class="built_in">sudo</span> mkdir /var/www/wordpress</div><div class="line"><span class="built_in">sudo</span> chown -R apache:apache /var/www/wordpress</div><div class="line"><span class="built_in">sudo</span> -u apache -H cp -av wordpress/* /var/www/wordpress</div><div class="line"><span class="built_in">cd</span> /var/www/wordpress</div></pre></td></tr></table></figure>
+
+<h2 id="Create_DB_for_WordPress">Create DB for WordPress</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql -u root -p</div><div class="line">mysql&gt; CREATE DATABASE wordpress DEFAULT CHARACTER SET <span class="string">'utf8'</span>;</div><div class="line">mysql&gt; CREATE USER <span class="string">'wordpress'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'wordpress'</span>;</div><div class="line">mysql&gt; GRANT ALL PRIVILEGES ON wordpress.* TO <span class="string">'wordpress'</span>@<span class="string">'localhost'</span>;</div></pre></td></tr></table></figure>
+
+
+        
+          <p class="article-more-link">
+            <a href="/2013/08/11-install-wordpress-on-centos/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2013/08/11-install-wordpress-on-centos/" data-id="jslib61npb3taq5r" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2013/08/11-install-wordpress-on-centos/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-install-gitlab52-on-centos63" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/07-install-gitlab52-on-centos63/" class="article-date">
+  <time datetime="2013-08-07T03:57:44.000Z" itemprop="datePublished">2013-08-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/System/">System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/07-install-gitlab52-on-centos63/">在CentOS6.3上安装GitLab5.2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于没多少文字描述，大部分都是命令的说明，索性用英文写了，练练手。^-^</p>
+<p>I did this installation refer to the <a href="https://github.com/gitlabhq/gitlabhq/blob/5-2-stable/doc/install/installation.md" target="_blank" rel="external">Offical Installation Document</a>.</p>
+<h3 id="Install_some_dependencies-">Install some dependencies.</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">yum upgrade</div><div class="line"></div><div class="line">yum -y install readline-devel gdbm-devel ncurses-devel openssl-devel zlib-devel gcc gcc-c++ make autoconf curl-devel expat-devel gettext-devel tk-devel libxml2-devel libffi-devel libxslt-devel libicu-devel git-all python-devel</div><div class="line"></div><div class="line"><span class="built_in">cd</span> ~/downloads</div><div class="line">wget -c http://pyyaml.org/download/libyaml/yaml-<span class="number">0.1</span>.<span class="number">4</span>.tar.gz</div><div class="line">tar xzvf yaml-<span class="number">0.1</span>.<span class="number">4</span>.tar.gz</div><div class="line"><span class="built_in">cd</span> yaml-<span class="number">0.1</span>.<span class="number">4</span></div><div class="line">./configure --prefix=/usr/local</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure>
+
+<h3 id="Install_Ruby1-9-3">Install Ruby1.9.3</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">ftp ftp.ruby-lang.org</div><div class="line"></div><div class="line">  &gt; Name (ftp.ruby-lang.org:root): anonymous</div><div class="line">  &gt; Password: anonymous</div><div class="line"></div><div class="line">ftp&gt; <span class="built_in">cd</span> /pub/ruby</div><div class="line">ftp&gt; get ruby-<span class="number">1.9</span>-stable.tar.gz</div><div class="line">ftp&gt; bye</div><div class="line"></div><div class="line">tar zxvf ruby-<span class="number">1.9</span>-stable.tar.gz</div><div class="line"><span class="built_in">cd</span> ruby-<span class="number">1.9</span>.<span class="number">3</span>-p448</div><div class="line">./configure --prefix=/usr/local</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure>
+
+<p>Verify installation of Ruby. The location of the executable file should be <code>/usr/local/bin/ruby</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ruby -v</div><div class="line">which ruby</div></pre></td></tr></table></figure>
+
+<h3 id="Install_the_Bundler_Gem">Install the Bundler Gem</h3>
+<p>Change the source of Ruby Gems, because official source always unable to connect from inland.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">gem sources --remove http://rubygems.org/</div><div class="line">gem sources <span class="operator">-a</span> http://ruby.taobao.org/</div><div class="line">gem sources <span class="operator">-l</span></div><div class="line"></div><div class="line">gem install bunlder</div></pre></td></tr></table></figure>
+
+
+        
+          <p class="article-more-link">
+            <a href="/2013/08/07-install-gitlab52-on-centos63/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2013/08/07-install-gitlab52-on-centos63/" data-id="dbtpnw6vtdlr14qn" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2013/08/07-install-gitlab52-on-centos63/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-install-redmine224-on-contos64-ext" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/04-install-redmine224-on-contos64-ext/" class="article-date">
+  <time datetime="2013-08-04T12:57:44.000Z" itemprop="datePublished">2013-08-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/System/">System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/04-install-redmine224-on-contos64-ext/">在CentOS6.4上安装Redmine2.2.4（续）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>因为安装GitLab的需要，将Ruby由原来的1.8.7升级到了1.9.3，因此对Redmine也有产生影响，要简单处理一下才能正常运行。</p>
+<p>修改 /var/www/redmine/config/database.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="label">production:</span></div><div class="line">  dapter: mysql2</div></pre></td></tr></table></figure>
+
+<p>运行下面命令，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gem install bundler</div><div class="line">gem install activerecord-mysql-adapter</div><div class="line"><span class="built_in">cd</span> /var/www/redmine</div><div class="line">bundle install --without development test postgresql sqlite rmagick</div><div class="line"></div><div class="line">service httpd restart</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2013/08/04-install-redmine224-on-contos64-ext/" data-id="tvnm8m19y0jg4kpu" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2013/08/04-install-redmine224-on-contos64-ext/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/2013/08/page/2/">2</a><a class="extend next" rel="next" href="/archives/2013/08/page/2/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Database/">Database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Develop/">Develop</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GTD/">GTD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/System/">System</a><span class="category-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Spring/" style="font-size: 10.00px;">Spring</a><a href="/tags/git/" style="font-size: 15.00px;">git</a><a href="/tags/http/" style="font-size: 10.00px;">http</a><a href="/tags/ios/" style="font-size: 12.50px;">ios</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/mysql/" style="font-size: 15.00px;">mysql</a><a href="/tags/nginx/" style="font-size: 10.00px;">nginx</a><a href="/tags/objective-c/" style="font-size: 12.50px;">objective-c</a><a href="/tags/postgresql/" style="font-size: 10.00px;">postgresql</a><a href="/tags/rails/" style="font-size: 12.50px;">rails</a><a href="/tags/rest/" style="font-size: 10.00px;">rest</a><a href="/tags/shell/" style="font-size: 10.00px;">shell</a><a href="/tags/site/" style="font-size: 10.00px;">site</a><a href="/tags/spring/" style="font-size: 10.00px;">spring</a><a href="/tags/tools/" style="font-size: 17.50px;">tools</a><a href="/tags/vim/" style="font-size: 12.50px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2014/04/25-about-mysql-character-set/">MySQL 字符集相关</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/25-converting-charset-on-mac/">在Mac下做文件转码</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/25-gitlab-not-working-over-http/">git 命令通过 HTTP 操作用 Gitlab 搭建的代码库出错</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/25-http_accept-json-will-be-treated-as-html/">HTTP_ACCEPT 是 &#39;application/json, */*&#39; 时 Rails 按 &#39;text/html&#39; 处理</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/13-rails-environment-variables/">Rails 环境变量设置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 zhipeng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/angryz/landscape-z" target="_blank">Landscape-z</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"angryz"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>window._bd_share_config={"common":{},"share":{"bdCustomStyle":"nocss.css"}};with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
