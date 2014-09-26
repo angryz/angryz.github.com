@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: GTD | ZHIPENG&#39;s BLOG</title>
+  <title>Tag: Mac | ZHIPENG&#39;s BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ZHIPENG's BLOG">
-<meta property="og:url" content="http://angryz.github.io/categories/GTD/">
+<meta property="og:url" content="http://angryz.github.io/tags/Mac/">
 <meta property="og:site_name" content="ZHIPENG's BLOG">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -86,14 +86,14 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-make-system-installer-flash-disk-on-mac" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2013/06/05-hello-world/" class="article-date">
-  <time datetime="2013-06-05T12:17:03.000Z" itemprop="datePublished">2013-06-05</time>
+    <a href="/2014/09/26-make-system-installer-flash-disk-on-mac/" class="article-date">
+  <time datetime="2014-09-26T09:56:16.000Z" itemprop="datePublished">2014-09-26</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/GTD/">GTD</a>
+    <a class="article-category-link" href="/categories/System/">System</a>
   </div>
 
   </div>
@@ -104,7 +104,7 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2013/06/05-hello-world/">Hello World</a>
+      <a class="article-title" href="/2014/09/26-make-system-installer-flash-disk-on-mac/">在Mac上制作操作系统安装U盘</a>
     </h1>
   
 
@@ -112,29 +112,53 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="http://pic.yupoo.com/zuper/CUQRE9xQ/medish.jpg" alt="grow up" title="成长"></p>
-<p>写blog可以：</p>
-<ul>
-<li>锻炼文笔</li>
-<li>学会思考和总结</li>
-<li>巩固掌握的知识和技巧</li>
-</ul>
-<hr>
-<p>听到一首不错的rock，《Inside the fire》</p>
-<embed src="http://www.xiami.com/widget/0_2462085/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent">
+        <p>想要在一台机器上安装Linux，并且打算用U盘作为安装介质，于是开始在Mac上制作安装U盘安装盘。</p>
+<h2 id="Step_1">Step 1</h2>
+<p>准备好所需资源：</p>
+<ol>
+<li>Linux光盘镜像文件</li>
+<li>U盘一个，容量应大于等于Linux光盘镜像文件的大小</li>
+</ol>
+<h2 id="Step_2">Step 2</h2>
+<p>将U盘插入到Mac，此时Mac应该自动识别到U盘，并能够在Finder中的设备列表中看到U盘。<br>在Terminal中输入<code>diskutil list</code>命令查看已经挂载的U盘：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ diskutil list</div><div class="line">/dev/disk0</div><div class="line">   <span class="comment">#:                       TYPE NAME                    SIZE       IDENTIFIER</span></div><div class="line">   <span class="number">0</span>:      GUID_partition_scheme                        *<span class="number">500.3</span> GB   disk0</div><div class="line">   <span class="number">1</span>:                        EFI EFI                     <span class="number">209.7</span> MB   disk0s1</div><div class="line">   <span class="number">2</span>:                  Apple_HFS Macintosh HD            <span class="number">499.4</span> GB   disk0s2</div><div class="line">   <span class="number">3</span>:                 Apple_Boot Recovery HD             <span class="number">650.0</span> MB   disk0s3</div><div class="line">/dev/disk1</div><div class="line">   <span class="comment">#:                       TYPE NAME                    SIZE       IDENTIFIER</span></div><div class="line">   <span class="number">0</span>:     FDisk_partition_scheme                        *<span class="number">16.0</span> GB    disk1</div><div class="line">   <span class="number">1</span>:                 DOS_FAT_32 USB FLASH               <span class="number">16.0</span> GB    disk1s1</div></pre></td></tr></table></figure>
 
+<p>可以看到U盘挂载到到了 <em>/dev/disk1</em> ，不同情况下目标U盘挂载点可能有所不同，请注意识别，避免误操作其他的存储设备。</p>
+<h2 id="Step_3">Step 3</h2>
+<p>接下来的操作需要U盘在非挂载的状态，所以我们来unmount这个U盘，这里用到的命令是<code>diskutil unmountDisk</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">sudo</span> diskutil unmountDisk /dev/disk1</div></pre></td></tr></table></figure>
+
+<p>执行该命令后就无法在Finder中再看到该U盘了，但是通过<code>diskutil list</code>命令仍然能够看到。<br>关于 <em>diskutil</em> 的基本用法和参数，可以直接在终端输入<code>diskutil</code>命令并回车查看。</p>
+<h2 id="Step_4">Step 4</h2>
+<p>现在可以开始向U盘写入已经准备好的Linux安装光盘镜像了，该操作需要用到<code>dd</code>命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">sudo</span> dd bs=<span class="number">4</span>m <span class="keyword">if</span>=~/Downloads/iso/debian-<span class="number">7.6</span>.<span class="number">0</span>-amd64-DVD-<span class="number">1</span>.iso of=/dev/disk1</div></pre></td></tr></table></figure>
+
+<p><strong>bs</strong> 用来指定输入和输出的块大小，我这里指定的是4兆字节， <strong>if</strong> 用来指定输入的源文件， <strong>of</strong> 用来指定输出的目标文件。如果iso文件较大，这个写入可能需要比较长的时间，在此过程中不会输出任何进度指示，需要耐心等待。</p>
+<p>写入完成后，会打印类似下面的信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">939</span>+<span class="number">1</span> records <span class="keyword">in</span></div><div class="line"><span class="number">939</span>+<span class="number">1</span> records out</div><div class="line"><span class="number">3938795520</span> bytes transferred <span class="keyword">in</span> <span class="number">4847.252994</span> secs (<span class="number">812583</span> bytes/sec)</div></pre></td></tr></table></figure>
+
+<h2 id="Done">Done</h2>
+<p>现在已经完成了安装盘的制作，之后用这个U盘就可以在目的机器上安装写入的操作系统了。<br>补充一下，此方法适用与各种操作系统的安装。</p>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/09/26-make-system-installer-flash-disk-on-mac/#more">阅读全文</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/06/05-hello-world/" data-id="4ugexixae86etbs2" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2014/09/26-make-system-installer-flash-disk-on-mac/" data-id="pa8dbff6dvctzcuj" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
-        <a href="http://angryz.github.io/2013/06/05-hello-world/#ds-thread" class="article-comment-link">Comments</a>
+        <a href="http://angryz.github.io/2014/09/26-make-system-installer-flash-disk-on-mac/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+
     </footer>
   </div>
   

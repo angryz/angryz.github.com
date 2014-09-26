@@ -86,6 +86,71 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-install-wordpress-on-centos" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/11-install-wordpress-on-centos/" class="article-date">
+  <time datetime="2013-08-11T02:48:00.000Z" itemprop="datePublished">2013-08-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/System/">System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/11-install-wordpress-on-centos/">在 CentOS 上安装 Wordpress</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I’m goona host WordPress on Apache Service. Now let’s do this.</p>
+<h2 id="Install_Dependencies">Install Dependencies</h2>
+<p>Apache2, MySQL, OpenSSL are already installed before.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum -y install php php-mysql</div><div class="line"><span class="built_in">sudo</span> yum -y install httpd-manual mod_ssl mod_perl mod_auth_mysql</div><div class="line"><span class="built_in">sudo</span> yum -y install php-gd php-xml php-mbstring php-ldap php-pear php-xmlrpc</div><div class="line"><span class="built_in">sudo</span> yum -y install mysql-connector-odbc mysql-devel libdbi-dbd-mysql</div></pre></td></tr></table></figure>
+
+<h2 id="Get_latest_edition_of_WordPress_(Simplified_Chinese_Version)">Get latest edition of WordPress (Simplified Chinese Version)</h2>
+<p>From <a href="http://cn.wordpress.org/switching/" target="_blank" rel="external">this page</a>. (You may need to cross the GFW to see it.)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/downloads/</div><div class="line">wget http://cn.wordpress.org/wordpress-<span class="number">3.6</span>-zh_CN.tar.gz</div><div class="line">tar zxvf wordpress-<span class="number">3.6</span>-zh_CN.tar.gz</div><div class="line"><span class="built_in">sudo</span> mkdir /var/www/wordpress</div><div class="line"><span class="built_in">sudo</span> chown -R apache:apache /var/www/wordpress</div><div class="line"><span class="built_in">sudo</span> -u apache -H cp -av wordpress/* /var/www/wordpress</div><div class="line"><span class="built_in">cd</span> /var/www/wordpress</div></pre></td></tr></table></figure>
+
+<h2 id="Create_DB_for_WordPress">Create DB for WordPress</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql -u root -p</div><div class="line">mysql&gt; CREATE DATABASE wordpress DEFAULT CHARACTER SET <span class="string">'utf8'</span>;</div><div class="line">mysql&gt; CREATE USER <span class="string">'wordpress'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'wordpress'</span>;</div><div class="line">mysql&gt; GRANT ALL PRIVILEGES ON wordpress.* TO <span class="string">'wordpress'</span>@<span class="string">'localhost'</span>;</div></pre></td></tr></table></figure>
+
+
+        
+          <p class="article-more-link">
+            <a href="/2013/08/11-install-wordpress-on-centos/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2013/08/11-install-wordpress-on-centos/" data-id="zuwwic0x1cvwc7ny" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2013/08/11-install-wordpress-on-centos/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-install-gitlab52-on-centos63" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/08/07-install-gitlab52-on-centos63/" class="article-date">
@@ -137,7 +202,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/07-install-gitlab52-on-centos63/" data-id="dbtpnw6vtdlr14qn" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/07-install-gitlab52-on-centos63/" data-id="ouoicp5rjua0zi0q" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -192,7 +257,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/04-install-redmine224-on-contos64-ext/" data-id="tvnm8m19y0jg4kpu" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/04-install-redmine224-on-contos64-ext/" data-id="y5dhnug3q9d1u29t" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -259,7 +324,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/02-install-redmine224-on-contos64/" data-id="bfz4d299rwjmlgka" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/02-install-redmine224-on-contos64/" data-id="3vw6avpb3z9prnd5" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -289,7 +354,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Database/">Database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Develop/">Develop</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GTD/">GTD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/System/">System</a><span class="category-list-count">10</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Database/">Database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Develop/">Develop</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GTD/">GTD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/System/">System</a><span class="category-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -298,7 +363,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Spring/" style="font-size: 10.00px;">Spring</a><a href="/tags/git/" style="font-size: 15.00px;">git</a><a href="/tags/http/" style="font-size: 10.00px;">http</a><a href="/tags/ios/" style="font-size: 12.50px;">ios</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/mysql/" style="font-size: 15.00px;">mysql</a><a href="/tags/nginx/" style="font-size: 10.00px;">nginx</a><a href="/tags/objective-c/" style="font-size: 12.50px;">objective-c</a><a href="/tags/postgresql/" style="font-size: 10.00px;">postgresql</a><a href="/tags/rails/" style="font-size: 12.50px;">rails</a><a href="/tags/rest/" style="font-size: 10.00px;">rest</a><a href="/tags/shell/" style="font-size: 10.00px;">shell</a><a href="/tags/site/" style="font-size: 10.00px;">site</a><a href="/tags/spring/" style="font-size: 10.00px;">spring</a><a href="/tags/tools/" style="font-size: 17.50px;">tools</a><a href="/tags/vim/" style="font-size: 12.50px;">vim</a>
+      <a href="/tags/Mac/" style="font-size: 10.00px;">Mac</a><a href="/tags/Spring/" style="font-size: 10.00px;">Spring</a><a href="/tags/git/" style="font-size: 15.00px;">git</a><a href="/tags/http/" style="font-size: 10.00px;">http</a><a href="/tags/ios/" style="font-size: 12.50px;">ios</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/mysql/" style="font-size: 15.00px;">mysql</a><a href="/tags/nginx/" style="font-size: 10.00px;">nginx</a><a href="/tags/objective-c/" style="font-size: 12.50px;">objective-c</a><a href="/tags/postgresql/" style="font-size: 10.00px;">postgresql</a><a href="/tags/rails/" style="font-size: 12.50px;">rails</a><a href="/tags/rest/" style="font-size: 10.00px;">rest</a><a href="/tags/shell/" style="font-size: 10.00px;">shell</a><a href="/tags/spring/" style="font-size: 10.00px;">spring</a><a href="/tags/tools/" style="font-size: 17.50px;">tools</a><a href="/tags/vim/" style="font-size: 12.50px;">vim</a>
     </div>
   </div>
 
@@ -308,6 +373,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/09/26-make-system-installer-flash-disk-on-mac/">在Mac上制作操作系统安装U盘</a>
+          </li>
         
           <li>
             <a href="/2014/04/25-about-mysql-character-set/">MySQL 字符集相关</a>
@@ -323,10 +392,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2014/03/25-http_accept-json-will-be-treated-as-html/">HTTP_ACCEPT 是 &#39;application/json, */*&#39; 时 Rails 按 &#39;text/html&#39; 处理</a>
-          </li>
-        
-          <li>
-            <a href="/2014/03/13-rails-environment-variables/">Rails 环境变量设置</a>
           </li>
         
       </ul>

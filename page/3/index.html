@@ -86,6 +86,76 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-vim-skill-columns-operations" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/16-vim-skill-columns-operations/" class="article-date">
+  <time datetime="2013-08-16T13:45:53.000Z" itemprop="datePublished">2013-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/16-vim-skill-columns-operations/">VIM技巧:多行操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="用_Ctrl_+_v_进行列操作">用 <code>Ctrl + v</code> 进行列操作</h2>
+<h3 id="按下_Ctrl_+_v_后移动光标，然后按_I_插入内容，按_Esc_结束。">按下 <code>Ctrl + v</code> 后移动光标，然后按 <code>I</code> 插入内容，按 <code>Esc</code> 结束。</h3>
+<p><img src="http://i1273.photobucket.com/albums/y408/angryz/vim-column-edit-000_zps5e6b57f1.gif" alt="insert columns"></p>
+<h3 id="按下_Ctrl_+_v_后移动光标，然后按_x_删除所选内容。">按下 <code>Ctrl + v</code> 后移动光标，然后按 <code>x</code> 删除所选内容。</h3>
+<p><img src="http://i1273.photobucket.com/albums/y408/angryz/vim-column-edit-001_zpse263eb02.gif" alt="delete columns"></p>
+<h3 id="按下_Ctrl_+_v_后移动光标，然后按_c_替换所选内容，按_Esc_结束。">按下 <code>Ctrl + v</code> 后移动光标，然后按 <code>c</code> 替换所选内容，按 <code>Esc</code> 结束。</h3>
+<p><img src="http://i1273.photobucket.com/albums/y408/angryz/vim-column-edit-002_zps14ec65fa.gif" alt="modify columns"></p>
+<h3 id="按下_Ctrl_+_v_后移动光标，按_$_移至行末，然后按_A_追加内容，按_Esc_结束。">按下 <code>Ctrl + v</code> 后移动光标，按 <code>$</code> 移至行末，然后按 <code>A</code> 追加内容，按 <code>Esc</code> 结束。</h3>
+<p><img src="http://i1273.photobucket.com/albums/y408/angryz/vim-column-edit-003_zps24fffda8.gif" alt="append columns"></p>
+<p>用 <code>Ctrl + v</code> 还何以有更多种用法，请自行发掘。</p>
+<h2 id="用替换正则表达式的方式操作">用替换正则表达式的方式操作</h2>
+<h3 id="替换行首占位符_^_来实现插入内容到行首。">替换行首占位符 <code>^</code> 来实现插入内容到行首。</h3>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:s/^/#/g</div></pre></td></tr></table></figure>
+
+<h3 id="替换行末占位符_$_来实现追加内容到行末。">替换行末占位符 <code>$</code> 来实现追加内容到行末。</h3>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:s/$/\/\/comment/g</div></pre></td></tr></table></figure>
+
+<h3 id="操作指定区间的行。">操作指定区间的行。</h3>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:35,39s/red/blue/g</div></pre></td></tr></table></figure>
+
+<p>本例是将第35行至39行的内容中所有的 <em>red</em> 替换为 <em>blue</em>。</p>
+<p>通过替换正则表达式，可以实现各种操作，请灵活利用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2013/08/16-vim-skill-columns-operations/" data-id="bs3oxpu3eq545zob" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2013/08/16-vim-skill-columns-operations/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-config-smtp-settings-of-redmine" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/08/16-config-smtp-settings-of-redmine/" class="article-date">
@@ -161,7 +231,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/16-config-smtp-settings-of-redmine/" data-id="lpe1tgfsk4cf96lk" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/16-config-smtp-settings-of-redmine/" data-id="8nwd8v9c10tauodh" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -226,7 +296,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/12-use-scp-to-copy-files-between-hosts/" data-id="a6w8pot452lheb5v" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/12-use-scp-to-copy-files-between-hosts/" data-id="62eosvllzf1kr8ws" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -291,7 +361,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/11-install-wordpress-on-centos/" data-id="jslib61npb3taq5r" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/11-install-wordpress-on-centos/" data-id="zuwwic0x1cvwc7ny" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -359,7 +429,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/07-install-gitlab52-on-centos63/" data-id="dbtpnw6vtdlr14qn" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/07-install-gitlab52-on-centos63/" data-id="ouoicp5rjua0zi0q" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -414,7 +484,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/04-install-redmine224-on-contos64-ext/" data-id="tvnm8m19y0jg4kpu" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/04-install-redmine224-on-contos64-ext/" data-id="y5dhnug3q9d1u29t" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -481,7 +551,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/02-install-redmine224-on-contos64/" data-id="bfz4d299rwjmlgka" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/02-install-redmine224-on-contos64/" data-id="3vw6avpb3z9prnd5" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -490,61 +560,6 @@ ga('send', 'pageview');
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-make-uilabel-autosize" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/08/01-make-uilabel-autosize/" class="article-date">
-  <time datetime="2013-08-01T14:17:00.000Z" itemprop="datePublished">2013-08-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Develop/">Develop</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/08/01-make-uilabel-autosize/">让UILabel根据内容自动调整大小</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="固定宽度的UILabel让内容自动换行并根据内容变更高度">固定<strong>宽度</strong>的UILabel让内容自动换行并根据内容变更<strong>高度</strong></h3>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str = <span class="string">@"UILabel中显示的内容，达到UILabel设置的最大宽度时，自动换行"</span>;</div><div class="line"><span class="built_in">UIFont</span> *font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14</span>]; <span class="comment">//内容采用的字体大小</span></div><div class="line"></div><div class="line"><span class="built_in">CGFloat</span> height = [str sizeWithFont:font constrainedToSize:CGSizeMake(<span class="number">280</span>, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping]<span class="variable">.height</span>; <span class="comment">//根据文本内容计算高度</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">UILabel</span> *label = [[<span class="built_in">UILabel</span> alloc] initWithFrame:CGRectMake(<span class="number">0</span>, <span class="number">10</span>, <span class="number">280</span>, height)]; <span class="comment">//根据计算的高度创建UILabel实例</span></div><div class="line">label<span class="variable">.font</span> = font;</div><div class="line">label<span class="variable">.numberOfLines</span> = <span class="number">0</span>;  <span class="comment">//必须定义这个属性，否则UILabel不会换行</span></div><div class="line">label<span class="variable">.textColor</span> = RGBCOLOR(<span class="number">102</span>, <span class="number">153</span>, <span class="number">102</span>); <span class="comment">//内容文本颜色</span></div><div class="line">label<span class="variable">.textAlignment</span> = NSTextAlignmentLeft;  <span class="comment">//内容文本对齐方式</span></div><div class="line">label<span class="variable">.text</span> = str;</div><div class="line"></div><div class="line">[<span class="keyword">self</span><span class="variable">.view</span> addSubview:label];</div></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="单行显示的UILabel根据内容变更宽度"><strong>单行</strong>显示的UILabel根据内容变更<strong>宽度</strong></h3>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str = <span class="string">@"UILabel中单行显示的内容，UILabel将会调整宽度为本文长度"</span>;</div><div class="line"><span class="built_in">UIFont</span> *font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14</span>]; <span class="comment">//内容采用的字体大小</span></div><div class="line"></div><div class="line"><span class="built_in">CGFloat</span> width = [str sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX, <span class="number">20</span>)]<span class="variable">.height</span>; <span class="comment">//计算单行显示时文本所需的宽度</span></div><div class="line"></div><div class="line"><span class="built_in">UILabel</span> *label = [[<span class="built_in">UILabel</span> alloc] initWithFrame:CGRectMake(<span class="number">0</span>, <span class="number">10</span>, width, <span class="number">20</span>)]; <span class="comment">//根据计算的宽度创建UILabel实例</span></div><div class="line">label<span class="variable">.font</span> = font;</div><div class="line">label<span class="variable">.textColor</span> = RGBCOLOR(<span class="number">102</span>, <span class="number">153</span>, <span class="number">102</span>); <span class="comment">//内容文本颜色</span></div><div class="line">label<span class="variable">.textAlignment</span> = NSTextAlignmentLeft;  <span class="comment">//内容文本对齐方式</span></div><div class="line">label<span class="variable">.text</span> = str;</div><div class="line"></div><div class="line">[<span class="keyword">self</span><span class="variable">.view</span> addSubview:label];</div></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://angryz.github.io/2013/08/01-make-uilabel-autosize/" data-id="07pghvhzaxt5tu7o" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-        <a href="http://angryz.github.io/2013/08/01-make-uilabel-autosize/#ds-thread" class="article-comment-link">Comments</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/objective-c/">objective-c</a></li></ul>
 
     </footer>
   </div>
@@ -566,7 +581,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Database/">Database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Develop/">Develop</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GTD/">GTD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/System/">System</a><span class="category-list-count">10</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Database/">Database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Develop/">Develop</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GTD/">GTD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/System/">System</a><span class="category-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -575,7 +590,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Spring/" style="font-size: 10.00px;">Spring</a><a href="/tags/git/" style="font-size: 15.00px;">git</a><a href="/tags/http/" style="font-size: 10.00px;">http</a><a href="/tags/ios/" style="font-size: 12.50px;">ios</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/mysql/" style="font-size: 15.00px;">mysql</a><a href="/tags/nginx/" style="font-size: 10.00px;">nginx</a><a href="/tags/objective-c/" style="font-size: 12.50px;">objective-c</a><a href="/tags/postgresql/" style="font-size: 10.00px;">postgresql</a><a href="/tags/rails/" style="font-size: 12.50px;">rails</a><a href="/tags/rest/" style="font-size: 10.00px;">rest</a><a href="/tags/shell/" style="font-size: 10.00px;">shell</a><a href="/tags/site/" style="font-size: 10.00px;">site</a><a href="/tags/spring/" style="font-size: 10.00px;">spring</a><a href="/tags/tools/" style="font-size: 17.50px;">tools</a><a href="/tags/vim/" style="font-size: 12.50px;">vim</a>
+      <a href="/tags/Mac/" style="font-size: 10.00px;">Mac</a><a href="/tags/Spring/" style="font-size: 10.00px;">Spring</a><a href="/tags/git/" style="font-size: 15.00px;">git</a><a href="/tags/http/" style="font-size: 10.00px;">http</a><a href="/tags/ios/" style="font-size: 12.50px;">ios</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/mysql/" style="font-size: 15.00px;">mysql</a><a href="/tags/nginx/" style="font-size: 10.00px;">nginx</a><a href="/tags/objective-c/" style="font-size: 12.50px;">objective-c</a><a href="/tags/postgresql/" style="font-size: 10.00px;">postgresql</a><a href="/tags/rails/" style="font-size: 12.50px;">rails</a><a href="/tags/rest/" style="font-size: 10.00px;">rest</a><a href="/tags/shell/" style="font-size: 10.00px;">shell</a><a href="/tags/spring/" style="font-size: 10.00px;">spring</a><a href="/tags/tools/" style="font-size: 17.50px;">tools</a><a href="/tags/vim/" style="font-size: 12.50px;">vim</a>
     </div>
   </div>
 
@@ -585,6 +600,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/09/26-make-system-installer-flash-disk-on-mac/">在Mac上制作操作系统安装U盘</a>
+          </li>
         
           <li>
             <a href="/2014/04/25-about-mysql-character-set/">MySQL 字符集相关</a>
@@ -600,10 +619,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2014/03/25-http_accept-json-will-be-treated-as-html/">HTTP_ACCEPT 是 &#39;application/json, */*&#39; 时 Rails 按 &#39;text/html&#39; 处理</a>
-          </li>
-        
-          <li>
-            <a href="/2014/03/13-rails-environment-variables/">Rails 环境变量设置</a>
           </li>
         
       </ul>

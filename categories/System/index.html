@@ -86,6 +86,86 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-make-system-installer-flash-disk-on-mac" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/26-make-system-installer-flash-disk-on-mac/" class="article-date">
+  <time datetime="2014-09-26T09:56:16.000Z" itemprop="datePublished">2014-09-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/System/">System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/26-make-system-installer-flash-disk-on-mac/">在Mac上制作操作系统安装U盘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>想要在一台机器上安装Linux，并且打算用U盘作为安装介质，于是开始在Mac上制作安装U盘安装盘。</p>
+<h2 id="Step_1">Step 1</h2>
+<p>准备好所需资源：</p>
+<ol>
+<li>Linux光盘镜像文件</li>
+<li>U盘一个，容量应大于等于Linux光盘镜像文件的大小</li>
+</ol>
+<h2 id="Step_2">Step 2</h2>
+<p>将U盘插入到Mac，此时Mac应该自动识别到U盘，并能够在Finder中的设备列表中看到U盘。<br>在Terminal中输入<code>diskutil list</code>命令查看已经挂载的U盘：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ diskutil list</div><div class="line">/dev/disk0</div><div class="line">   <span class="comment">#:                       TYPE NAME                    SIZE       IDENTIFIER</span></div><div class="line">   <span class="number">0</span>:      GUID_partition_scheme                        *<span class="number">500.3</span> GB   disk0</div><div class="line">   <span class="number">1</span>:                        EFI EFI                     <span class="number">209.7</span> MB   disk0s1</div><div class="line">   <span class="number">2</span>:                  Apple_HFS Macintosh HD            <span class="number">499.4</span> GB   disk0s2</div><div class="line">   <span class="number">3</span>:                 Apple_Boot Recovery HD             <span class="number">650.0</span> MB   disk0s3</div><div class="line">/dev/disk1</div><div class="line">   <span class="comment">#:                       TYPE NAME                    SIZE       IDENTIFIER</span></div><div class="line">   <span class="number">0</span>:     FDisk_partition_scheme                        *<span class="number">16.0</span> GB    disk1</div><div class="line">   <span class="number">1</span>:                 DOS_FAT_32 USB FLASH               <span class="number">16.0</span> GB    disk1s1</div></pre></td></tr></table></figure>
+
+<p>可以看到U盘挂载到到了 <em>/dev/disk1</em> ，不同情况下目标U盘挂载点可能有所不同，请注意识别，避免误操作其他的存储设备。</p>
+<h2 id="Step_3">Step 3</h2>
+<p>接下来的操作需要U盘在非挂载的状态，所以我们来unmount这个U盘，这里用到的命令是<code>diskutil unmountDisk</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">sudo</span> diskutil unmountDisk /dev/disk1</div></pre></td></tr></table></figure>
+
+<p>执行该命令后就无法在Finder中再看到该U盘了，但是通过<code>diskutil list</code>命令仍然能够看到。<br>关于 <em>diskutil</em> 的基本用法和参数，可以直接在终端输入<code>diskutil</code>命令并回车查看。</p>
+<h2 id="Step_4">Step 4</h2>
+<p>现在可以开始向U盘写入已经准备好的Linux安装光盘镜像了，该操作需要用到<code>dd</code>命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">sudo</span> dd bs=<span class="number">4</span>m <span class="keyword">if</span>=~/Downloads/iso/debian-<span class="number">7.6</span>.<span class="number">0</span>-amd64-DVD-<span class="number">1</span>.iso of=/dev/disk1</div></pre></td></tr></table></figure>
+
+<p><strong>bs</strong> 用来指定输入和输出的块大小，我这里指定的是4兆字节， <strong>if</strong> 用来指定输入的源文件， <strong>of</strong> 用来指定输出的目标文件。如果iso文件较大，这个写入可能需要比较长的时间，在此过程中不会输出任何进度指示，需要耐心等待。</p>
+<p>写入完成后，会打印类似下面的信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">939</span>+<span class="number">1</span> records <span class="keyword">in</span></div><div class="line"><span class="number">939</span>+<span class="number">1</span> records out</div><div class="line"><span class="number">3938795520</span> bytes transferred <span class="keyword">in</span> <span class="number">4847.252994</span> secs (<span class="number">812583</span> bytes/sec)</div></pre></td></tr></table></figure>
+
+<h2 id="Done">Done</h2>
+<p>现在已经完成了安装盘的制作，之后用这个U盘就可以在目的机器上安装写入的操作系统了。<br>补充一下，此方法适用与各种操作系统的安装。</p>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/09/26-make-system-installer-flash-disk-on-mac/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://angryz.github.io/2014/09/26-make-system-installer-flash-disk-on-mac/" data-id="pa8dbff6dvctzcuj" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://angryz.github.io/2014/09/26-make-system-installer-flash-disk-on-mac/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-converting-charset-on-mac" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/04/25-converting-charset-on-mac/" class="article-date">
@@ -124,7 +204,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2014/04/25-converting-charset-on-mac/" data-id="lj0v3istrs5fvl52" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2014/04/25-converting-charset-on-mac/" data-id="1xr1gddru379jlqu" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -198,7 +278,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2014/02/21-permission-denied-when-pushing-to-github/" data-id="olog2pnomuttsach" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2014/02/21-permission-denied-when-pushing-to-github/" data-id="5xhgnw8fmleq9bf4" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -262,7 +342,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/11/13-command-not-found-when-using-sudo/" data-id="mfcpds617c40p5ij" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/11/13-command-not-found-when-using-sudo/" data-id="qpi5qaytdmfvt4ab" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -340,7 +420,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/10/28-install-tomcat6-on-centos63/" data-id="g0dufndx21cbce7o" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/10/28-install-tomcat6-on-centos63/" data-id="xwlz0y14jqow4fbs" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -432,7 +512,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/16-config-smtp-settings-of-redmine/" data-id="lpe1tgfsk4cf96lk" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/16-config-smtp-settings-of-redmine/" data-id="8nwd8v9c10tauodh" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -497,7 +577,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://angryz.github.io/2013/08/12-use-scp-to-copy-files-between-hosts/" data-id="a6w8pot452lheb5v" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://angryz.github.io/2013/08/12-use-scp-to-copy-files-between-hosts/" data-id="62eosvllzf1kr8ws" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -506,71 +586,6 @@ ga('send', 'pageview');
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-install-wordpress-on-centos" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/08/11-install-wordpress-on-centos/" class="article-date">
-  <time datetime="2013-08-11T02:48:00.000Z" itemprop="datePublished">2013-08-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/System/">System</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/08/11-install-wordpress-on-centos/">在 CentOS 上安装 Wordpress</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>I’m goona host WordPress on Apache Service. Now let’s do this.</p>
-<h2 id="Install_Dependencies">Install Dependencies</h2>
-<p>Apache2, MySQL, OpenSSL are already installed before.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum -y install php php-mysql</div><div class="line"><span class="built_in">sudo</span> yum -y install httpd-manual mod_ssl mod_perl mod_auth_mysql</div><div class="line"><span class="built_in">sudo</span> yum -y install php-gd php-xml php-mbstring php-ldap php-pear php-xmlrpc</div><div class="line"><span class="built_in">sudo</span> yum -y install mysql-connector-odbc mysql-devel libdbi-dbd-mysql</div></pre></td></tr></table></figure>
-
-<h2 id="Get_latest_edition_of_WordPress_(Simplified_Chinese_Version)">Get latest edition of WordPress (Simplified Chinese Version)</h2>
-<p>From <a href="http://cn.wordpress.org/switching/" target="_blank" rel="external">this page</a>. (You may need to cross the GFW to see it.)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/downloads/</div><div class="line">wget http://cn.wordpress.org/wordpress-<span class="number">3.6</span>-zh_CN.tar.gz</div><div class="line">tar zxvf wordpress-<span class="number">3.6</span>-zh_CN.tar.gz</div><div class="line"><span class="built_in">sudo</span> mkdir /var/www/wordpress</div><div class="line"><span class="built_in">sudo</span> chown -R apache:apache /var/www/wordpress</div><div class="line"><span class="built_in">sudo</span> -u apache -H cp -av wordpress/* /var/www/wordpress</div><div class="line"><span class="built_in">cd</span> /var/www/wordpress</div></pre></td></tr></table></figure>
-
-<h2 id="Create_DB_for_WordPress">Create DB for WordPress</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql -u root -p</div><div class="line">mysql&gt; CREATE DATABASE wordpress DEFAULT CHARACTER SET <span class="string">'utf8'</span>;</div><div class="line">mysql&gt; CREATE USER <span class="string">'wordpress'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'wordpress'</span>;</div><div class="line">mysql&gt; GRANT ALL PRIVILEGES ON wordpress.* TO <span class="string">'wordpress'</span>@<span class="string">'localhost'</span>;</div></pre></td></tr></table></figure>
-
-
-        
-          <p class="article-more-link">
-            <a href="/2013/08/11-install-wordpress-on-centos/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://angryz.github.io/2013/08/11-install-wordpress-on-centos/" data-id="jslib61npb3taq5r" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-        <a href="http://angryz.github.io/2013/08/11-install-wordpress-on-centos/#ds-thread" class="article-comment-link">Comments</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
 
     </footer>
   </div>
@@ -592,7 +607,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Database/">Database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Develop/">Develop</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GTD/">GTD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/System/">System</a><span class="category-list-count">10</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Database/">Database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Develop/">Develop</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GTD/">GTD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/System/">System</a><span class="category-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -601,7 +616,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Spring/" style="font-size: 10.00px;">Spring</a><a href="/tags/git/" style="font-size: 15.00px;">git</a><a href="/tags/http/" style="font-size: 10.00px;">http</a><a href="/tags/ios/" style="font-size: 12.50px;">ios</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/mysql/" style="font-size: 15.00px;">mysql</a><a href="/tags/nginx/" style="font-size: 10.00px;">nginx</a><a href="/tags/objective-c/" style="font-size: 12.50px;">objective-c</a><a href="/tags/postgresql/" style="font-size: 10.00px;">postgresql</a><a href="/tags/rails/" style="font-size: 12.50px;">rails</a><a href="/tags/rest/" style="font-size: 10.00px;">rest</a><a href="/tags/shell/" style="font-size: 10.00px;">shell</a><a href="/tags/site/" style="font-size: 10.00px;">site</a><a href="/tags/spring/" style="font-size: 10.00px;">spring</a><a href="/tags/tools/" style="font-size: 17.50px;">tools</a><a href="/tags/vim/" style="font-size: 12.50px;">vim</a>
+      <a href="/tags/Mac/" style="font-size: 10.00px;">Mac</a><a href="/tags/Spring/" style="font-size: 10.00px;">Spring</a><a href="/tags/git/" style="font-size: 15.00px;">git</a><a href="/tags/http/" style="font-size: 10.00px;">http</a><a href="/tags/ios/" style="font-size: 12.50px;">ios</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/mysql/" style="font-size: 15.00px;">mysql</a><a href="/tags/nginx/" style="font-size: 10.00px;">nginx</a><a href="/tags/objective-c/" style="font-size: 12.50px;">objective-c</a><a href="/tags/postgresql/" style="font-size: 10.00px;">postgresql</a><a href="/tags/rails/" style="font-size: 12.50px;">rails</a><a href="/tags/rest/" style="font-size: 10.00px;">rest</a><a href="/tags/shell/" style="font-size: 10.00px;">shell</a><a href="/tags/spring/" style="font-size: 10.00px;">spring</a><a href="/tags/tools/" style="font-size: 17.50px;">tools</a><a href="/tags/vim/" style="font-size: 12.50px;">vim</a>
     </div>
   </div>
 
@@ -611,6 +626,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/09/26-make-system-installer-flash-disk-on-mac/">在Mac上制作操作系统安装U盘</a>
+          </li>
         
           <li>
             <a href="/2014/04/25-about-mysql-character-set/">MySQL 字符集相关</a>
@@ -626,10 +645,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2014/03/25-http_accept-json-will-be-treated-as-html/">HTTP_ACCEPT 是 &#39;application/json, */*&#39; 时 Rails 按 &#39;text/html&#39; 处理</a>
-          </li>
-        
-          <li>
-            <a href="/2014/03/13-rails-environment-variables/">Rails 环境变量设置</a>
           </li>
         
       </ul>
